@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tournoi de pétanque déguisé · Le Creusot · 18 mars 2027</title>
+  <meta name="description" content="Tournoi de pétanque déguisé organisé par les L2 STAPS : 48 doublettes, 12 poules, tableau final et consolante, tombola. Jeudi 18 mars 2027 à la NEF du Creusot. 5 € par équipe.">
+  <meta name="theme-color" content="#970c2d">
+  <meta property="og:title" content="Tournoi de pétanque déguisé — Le Creusot">
+  <meta property="og:description" content="Jeudi 18 mars 2027 à la NEF du Creusot · 48 doublettes · 5 € par équipe · déguisement de rigueur !">
+  <meta property="og:image" content="assets/logo.png">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.png" alt="" width="44" height="44">
+      <span>Tournoi de pétanque<small>Le Creusot · 18.03.2027</small></span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#infos">Infos pratiques</a>
+      <a href="#programme">Programme</a>
+      <a href="#lots">Lots &amp; tombola</a>
+      <a href="#reglement">Règlement</a>
+      <a href="#inscription">Inscription</a>
+      <a class="btn btn-rouge btn-sm" href="direct.html"><span class="dot dot-live" style="background:#fff"></span> Direct</a>
+    </nav>
+    <a class="live-pill header-live" href="direct.html"><span class="dot dot-live"></span> Direct</a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Ouvrir le menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Navigation mobile">
+    <a href="#infos">Infos pratiques</a>
+    <a href="#format">Format du tournoi</a>
+    <a href="#programme">Programme</a>
+    <a href="#deguisement">Déguisement</a>
+    <a href="#lots">Lots &amp; tombola</a>
+    <a href="#reglement">Règlement</a>
+    <a href="#faq">FAQ</a>
+    <a class="btn btn-rouge" href="#inscription">Inscrire mon équipe · 5 €</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ============================== HERO ============================== -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-logo">
+        <img src="assets/logo.png" alt="Logo du tournoi de pétanque — Campus Bourgogne, Le Creusot" width="440" height="437">
+      </div>
+      <div class="hero-text">
+        <span class="eyebrow">Organisé par les L2 STAPS</span>
+        <h1>Tournoi de pétanque <em>déguisé&nbsp;!</em></h1>
+        <p class="hero-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Jeudi 18 mars 2027</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-7.5-8-13a8 8 0 0 1 16 0c0 5.5-8 13-8 13z"/><circle cx="12" cy="9" r="3"/></svg> La NEF, Le Creusot</span>
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-rouge btn-lg" data-cfg-href="lienHelloAsso" href="#inscription" target="_blank" rel="noopener">Prendre ma place · 5 €/équipe</a>
+          <a class="btn btn-ligne btn-lg" href="direct.html">Poules &amp; scores en direct</a>
+        </div>
+        <div class="countdown" id="countdown" aria-live="polite">
+          <div><b data-cd="j">--</b><small>jours</small></div>
+          <div><b data-cd="h">--</b><small>heures</small></div>
+          <div><b data-cd="m">--</b><small>min</small></div>
+          <div><b data-cd="s">--</b><small>sec</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ CHIFFRES ============================ -->
+  <section class="chiffres" aria-label="Le tournoi en chiffres">
+    <div class="wrap">
+      <div class="chiffre"><b>48</b><span>doublettes</span></div>
+      <div class="chiffre"><b>12</b><span>poules de 4</span></div>
+      <div class="chiffre"><b>4</b><span>matchs minimum par équipe</span></div>
+      <div class="chiffre"><b>5&nbsp;€</b><span>par équipe</span></div>
+      <div class="chiffre"><b>1</b><span>tombola &amp; des lots</span></div>
+    </div>
+  </section>
+
+  <!-- ========================= INFOS PRATIQUES ======================== -->
+  <section class="section" id="infos">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Tout ce qu'il faut savoir</span>
+        <h2>Infos pratiques</h2>
+        <p>Une journée de pétanque, de soleil (on l'espère) et de déguisements, ouverte à toutes les doublettes motivées.</p>
+      </div>
+
+      <div class="grid grid-3">
+        <article class="card">
+          <h3><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>Date &amp; horaires</h3>
+          <p class="info-big">Jeudi 18 mars 2027</p>
+          <ul>
+            <li>Accueil et pointage des équipes : <b>8h30</b></li>
+            <li>Début des poules : <b>9h30</b></li>
+            <li>Finales &amp; remise des lots : <b>vers 16h45</b></li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-7.5-8-13a8 8 0 0 1 16 0c0 5.5-8 13-8 13z"/><circle cx="12" cy="9" r="3"/></svg></span>Lieu</h3>
+          <p class="info-big">La NEF</p>
+          <p><span data-cfg-text="adresse" data-br></span>Le Creusot (71200)</p>
+          <a class="btn btn-ligne btn-sm" data-cfg-href="lienCarte" href="#" target="_blank" rel="noopener">Voir l'itinéraire</a>
+        </article>
+
+        <article class="card">
+          <h3><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v3a2 2 0 0 0 0 4v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3a2 2 0 0 0 0-4z"/><path d="M13 5v2M13 11v2M13 17v2"/></svg></span>Inscription</h3>
+          <p class="info-big">5 € par équipe</p>
+          <ul>
+            <li>Équipes de <b>2 joueurs</b> (doublettes)</li>
+            <li>Limité à <b>48 équipes</b> : premiers inscrits, premiers servis</li>
+            <li>Paiement en ligne sur <b>HelloAsso</b></li>
+          </ul>
+          <a class="btn btn-rouge btn-sm" data-cfg-href="lienHelloAsso" href="#inscription" target="_blank" rel="noopener">Je m'inscris</a>
+        </article>
+
+        <article class="card">
+          <h3><span class="ico ico-soleil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></span>Tournoi déguisé</h3>
+          <p>Le déguisement est <b>de rigueur</b> pour les deux joueurs de l'équipe. Thème libre : plus c'est original, mieux c'est&nbsp;!</p>
+          <a href="#deguisement">Idées et conseils →</a>
+        </article>
+
+        <article class="card">
+          <h3><span class="ico ico-soleil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M5 9c4 2 10 2 14 0M5 15c4-2 10-2 14 0"/></svg></span>Matériel</h3>
+          <!-- À VÉRIFIER : matériel fourni ou non -->
+          <ul>
+            <li>Apportez <b>votre jeu de boules</b> si vous en avez un</li>
+            <li>Les terrains sont tracés et numérotés</li>
+            <li>Prévoyez des chaussures fermées et confortables</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3><span class="ico ico-soleil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v3M10 2v3M14 2v3"/></svg></span>Sur place</h3>
+          <!-- À VÉRIFIER : buvette / restauration -->
+          <ul>
+            <li>Buvette &amp; snacks tenus par les L2 STAPS</li>
+            <li>Vente des tickets de <b>tombola</b></li>
+            <li>Résultats affichés en direct sur ce site</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== FORMAT ============================ -->
+  <section class="section section-alt" id="format">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Comment ça marche ?</span>
+        <h2>Format du tournoi</h2>
+        <p>Des poules le matin, puis deux tableaux à élimination directe l'après-midi : toutes les équipes jouent au moins 4 matchs.</p>
+      </div>
+
+      <div class="format">
+        <div class="etape">
+          <div class="n">12</div>
+          <h3>Poules de 4 doublettes</h3>
+          <p>Chaque équipe rencontre les 3 autres équipes de sa poule. Classement au nombre de victoires, puis à la différence de points.</p>
+        </div>
+        <div class="fleche" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+        <div class="etape">
+          <div class="n">48 → 32</div>
+          <h3>Qualification</h3>
+          <p>Les <b>1ers</b> et <b>2es</b> de chaque poule + les <b>8 meilleurs 3es</b> rejoignent le tableau final.</p>
+        </div>
+        <div class="fleche" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg></div>
+        <div class="sorties">
+          <div class="etape etape-principal">
+            <h3>🏆 Tableau final · 32 équipes</h3>
+            <p>Élimination directe dès les <b>16es de finale</b>, jusqu'à la finale. Match pour la 3e place.</p>
+          </div>
+          <div class="etape etape-conso">
+            <h3>🎉 Consolante · 16 équipes</h3>
+            <p>Les 4 autres 3es et les 4es de poule continuent dès les <b>8es de finale</b>. Elle aussi a son podium&nbsp;!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ PROGRAMME ========================== -->
+  <section class="section" id="programme">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Jeudi 18 mars 2027</span>
+        <h2>Programme</h2>
+        <p>Les horaires des matchs et les numéros de terrain sont mis à jour en direct le jour J.</p>
+      </div>
+      <!-- À VÉRIFIER : horaires indicatifs. Pensez aussi à mettre à jour js/config.js (horaires des tours). -->
+      <ol class="timeline">
+        <li class="temps-fort"><time>8h30</time><div class="tl-body"><b>Accueil &amp; pointage des équipes</b><span>Présentez-vous à l'accueil avec votre déguisement&nbsp;!</span></div></li>
+        <li><time>9h00</time><div class="tl-body"><b>Mot d'accueil &amp; tirage au sort des poules</b><span>Les poules sont publiées sur la page Direct.</span></div></li>
+        <li><time>9h30</time><div class="tl-body"><b>Poules · 1er tour</b><span>2 matchs en simultané par poule.</span></div></li>
+        <li><time>10h15</time><div class="tl-body"><b>Poules · 2e tour</b></div></li>
+        <li><time>11h00</time><div class="tl-body"><b>Poules · 3e tour</b><span>Classements finaux des poules et des meilleurs 3es.</span></div></li>
+        <li class="temps-fort"><time>11h45</time><div class="tl-body"><b>Pause déjeuner</b><span>Publication du tableau final et de la consolante.</span></div></li>
+        <li><time>13h00</time><div class="tl-body"><b>16es de finale</b><span>Consolante : 8es de finale.</span></div></li>
+        <li><time>13h45</time><div class="tl-body"><b>8es de finale</b><span>Consolante : quarts de finale.</span></div></li>
+        <li><time>14h30</time><div class="tl-body"><b>Quarts de finale</b><span>Consolante : demi-finales.</span></div></li>
+        <li><time>15h15</time><div class="tl-body"><b>Demi-finales</b><span>Consolante : finale et match pour la 3e place.</span></div></li>
+        <li class="temps-fort"><time>16h00</time><div class="tl-body"><b>Finale &amp; match pour la 3e place</b><span>Tout le monde autour du terrain d'honneur&nbsp;!</span></div></li>
+        <li class="temps-fort"><time>16h45</time><div class="tl-body"><b>Remise des lots &amp; tirage de la tombola</b><span>Podiums du tableau final et de la consolante.</span></div></li>
+      </ol>
+      <p class="note">Horaires indicatifs, susceptibles d'évoluer selon l'avancement des parties.</p>
+    </div>
+  </section>
+
+  <!-- =========================== DÉGUISEMENT ========================= -->
+  <section class="section section-alt" id="deguisement">
+    <div class="wrap deguise">
+      <div class="deguise-visuel">
+        <h3>Ici, on pointe en costume&nbsp;!</h3>
+        <p>C'est un tournoi déguisé : venez avec votre plus beau costume et faites le show sur les terrains. Un duo assorti, c'est encore mieux.</p>
+        <div class="tags">
+          <span class="tag">Super-héros</span><span class="tag">Années 80</span><span class="tag">Pirates</span>
+          <span class="tag">Cow-boys</span><span class="tag">Disco</span><span class="tag">Dessins animés</span>
+          <span class="tag">Animaux</span><span class="tag">Vikings</span><span class="tag">Tenue de plage</span>
+        </div>
+      </div>
+      <div>
+        <div class="section-head" style="text-align:left;margin:0 0 18px">
+          <span class="kicker">Tournoi déguisé</span>
+          <h2 style="padding:0">Les règles du look</h2>
+        </div>
+        <ul class="checklist">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Les deux joueurs déguisés</b>, du premier au dernier match.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Un costume qui permet de jouer</b> : il faut pouvoir se baisser et lancer&nbsp;!</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Choisissez un nom d'équipe</b> en rapport avec votre déguisement : il apparaîtra sur le site.</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span><b>Respect &amp; bonne humeur</b> : pas de déguisement offensant.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================== LOTS & TOMBOLA ======================== -->
+  <section class="section" id="lots">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">À gagner</span>
+        <h2>Lots &amp; tombola</h2>
+        <p>Des lots pour les 3 premières équipes du tableau final <b>et</b> de la consolante.</p>
+      </div>
+
+      <div class="podium-wrap">
+        <div class="podium-card">
+          <h3>Tableau final</h3>
+          <p>Les 3 meilleures équipes du tournoi</p>
+          <div class="podium">
+            <div class="marche m2"><div class="medaille">2</div><div class="bloc">Lot du 2e</div></div>
+            <div class="marche m1"><div class="medaille">1</div><div class="bloc">Lot du vainqueur</div></div>
+            <div class="marche m3"><div class="medaille">3</div><div class="bloc">Lot du 3e</div></div>
+          </div>
+        </div>
+        <div class="podium-card conso">
+          <h3>Consolante</h3>
+          <p>Parce que tout le monde a sa chance&nbsp;!</p>
+          <div class="podium">
+            <div class="marche m2"><div class="medaille">2</div><div class="bloc">Lot du 2e</div></div>
+            <div class="marche m1"><div class="medaille">1</div><div class="bloc">Lot du vainqueur</div></div>
+            <div class="marche m3"><div class="medaille">3</div><div class="bloc">Lot du 3e</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tombola">
+        <div>
+          <h3>Grande tombola</h3>
+          <!-- À VÉRIFIER : prix du ticket et lots de la tombola -->
+          <p>Tickets en vente sur place toute la journée, joueurs comme spectateurs. Tirage au sort lors de la remise des lots, vers 16h45. Les lots seront dévoilés très bientôt&nbsp;!</p>
+        </div>
+        <div class="ticket" aria-hidden="true">TOMBOLA · N°018</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ INSCRIPTION ========================= -->
+  <section class="section section-alt" id="inscription">
+    <div class="wrap">
+      <div class="inscription">
+        <div>
+          <span class="kicker" style="color:var(--soleil-clair)">Inscriptions ouvertes</span>
+          <h2>Prends ta place&nbsp;!</h2>
+          <div class="prix"><b>5&nbsp;€</b><span>par équipe<br>(soit 2,50 € par joueur)</span></div>
+          <p>Seulement <b>48 doublettes</b> : ne tardez pas à inscrire votre équipe.</p>
+        </div>
+        <div>
+          <ol class="steps">
+            <li>Réservez votre place sur HelloAsso (5 € par équipe)</li>
+            <li>Indiquez le nom de votre équipe et des deux joueurs</li>
+            <li>Préparez vos déguisements</li>
+            <li>Rendez-vous le 18 mars à 8h30 à la NEF&nbsp;!</li>
+          </ol>
+          <p style="margin:16px 0 0"><a class="btn btn-soleil btn-lg" data-cfg-href="lienHelloAsso" href="#" target="_blank" rel="noopener">Inscrire mon équipe sur HelloAsso</a></p>
+          <p class="helloasso-note">Paiement sécurisé via HelloAsso. L'inscription est validée à réception du paiement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================= RÈGLEMENT ========================== -->
+  <section class="section" id="reglement">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Pour que tout se passe bien</span>
+        <h2>Règlement</h2>
+      </div>
+      <!-- À VÉRIFIER : adaptez ces règles à votre organisation -->
+      <div class="accordeon">
+        <details open>
+          <summary>Déroulement des parties</summary>
+          <div class="acc-body"><ul>
+            <li>Parties en doublette, 3 boules par joueur.</li>
+            <li>Parties en <b>13 points</b>, limitées dans le temps : au signal de fin, on termine la mène en cours et on joue une mène supplémentaire. En cas d'égalité, une mène décisive est jouée.</li>
+            <li>Les scores sont transmis à la table de marque à la fin de chaque partie.</li>
+            <li>Le numéro de terrain de chaque match est indiqué sur la page <a href="direct.html">Direct</a>.</li>
+          </ul></div>
+        </details>
+        <details>
+          <summary>Classement des poules</summary>
+          <div class="acc-body"><ul>
+            <li>Chaque équipe joue 3 matchs (une rencontre contre chaque équipe de sa poule).</li>
+            <li>Classement : 1) nombre de victoires, 2) différence de points (points marqués − points encaissés), 3) points marqués, 4) confrontation directe.</li>
+            <li>Les 3es de poule sont départagés entre eux selon les mêmes critères : les 8 meilleurs vont dans le tableau final.</li>
+          </ul></div>
+        </details>
+        <details>
+          <summary>Tableau final &amp; consolante</summary>
+          <div class="acc-body"><ul>
+            <li><b>Tableau final</b> (32 équipes) : 12 premiers, 12 deuxièmes et les 8 meilleurs troisièmes. Élimination directe à partir des 16es de finale.</li>
+            <li><b>Consolante</b> (16 équipes) : les 4 autres troisièmes et les 12 quatrièmes. Élimination directe à partir des 8es de finale.</li>
+            <li>Le placement dans les tableaux suit le classement des poules : les meilleures équipes sont séparées et deux équipes d'une même poule ne se rencontrent pas au premier tour.</li>
+            <li>Un match pour la 3e place est joué dans chaque tableau.</li>
+          </ul></div>
+        </details>
+        <details>
+          <summary>Retards, forfaits &amp; fair-play</summary>
+          <div class="acc-body"><ul>
+            <li>Toute équipe absente 15 minutes après l'appel de son match pourra être déclarée forfait (score 13-0).</li>
+            <li>Les décisions des organisateurs sont sans appel.</li>
+            <li>Bonne humeur obligatoire : on est là pour s'amuser&nbsp;!</li>
+          </ul></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================ FAQ ============================= -->
+  <section class="section section-alt" id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Questions fréquentes</span>
+        <h2>FAQ</h2>
+      </div>
+      <div class="accordeon">
+        <details>
+          <summary>Faut-il savoir bien jouer à la pétanque&nbsp;?</summary>
+          <div class="acc-body">Pas du tout&nbsp;! Le tournoi est avant tout festif. Débutants et pointeurs confirmés sont les bienvenus, et la consolante permet à tout le monde de jouer jusqu'en fin de journée.</div>
+        </details>
+        <details>
+          <summary>Je n'ai pas de coéquipier, comment faire&nbsp;?</summary>
+          <div class="acc-body">Les inscriptions se font par doublette. Contactez-nous et on essaiera de vous trouver un ou une partenaire.</div>
+        </details>
+        <details>
+          <summary>Combien de matchs vais-je jouer&nbsp;?</summary>
+          <div class="acc-body">Au minimum 4 : les 3 matchs de poule, puis au moins un match dans le tableau final ou la consolante. Les finalistes en jouent 8.</div>
+        </details>
+        <details>
+          <summary>Comment suivre les résultats le jour J&nbsp;?</summary>
+          <div class="acc-body">Sur la page <a href="direct.html">Direct</a> : poules, classements, tableau final, consolante, horaires, terrains et scores en temps réel. Sélectionnez votre équipe pour voir directement votre prochain match.</div>
+        </details>
+        <details>
+          <summary>Peut-on venir en spectateur&nbsp;?</summary>
+          <div class="acc-body">Bien sûr&nbsp;! Venez encourager vos amis… et tenter votre chance à la tombola.</div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="" width="72" height="72">
+        <div>
+          <b>Tournoi de pétanque déguisé</b>
+          Organisé par les étudiants de L2 STAPS<br>Campus Bourgogne · Le Creusot
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="direct.html">Résultats en direct</a>
+        <a data-cfg-href="lienHelloAsso" href="#" target="_blank" rel="noopener">Inscription HelloAsso</a>
+        <a data-cfg-href="instagram" data-hide-empty href="#" target="_blank" rel="noopener">Instagram</a>
+        <a data-cfg-href="email" data-mailto data-hide-empty href="#">Nous contacter</a>
+      </div>
+    </div>
+    <div class="footer-bas">
+      <span>© 2027 · L2 STAPS Le Creusot</span>
+      <a href="admin.html">Espace organisateurs</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/common.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

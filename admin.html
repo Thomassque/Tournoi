@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Espace organisateurs · Tournoi de pétanque</title>
+  <meta name="theme-color" content="#2b1a1e">
+  <link rel="icon" type="image/png" href="assets/favicon-32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.png" alt="" width="44" height="44">
+      <span>Espace orga<small>Tournoi de pétanque</small></span>
+    </a>
+    <a class="btn btn-ligne btn-sm" href="direct.html" target="_blank" rel="noopener">Voir le direct ↗</a>
+  </div>
+</header>
+
+<div class="admin-bar">
+  <div class="wrap">
+    <span id="mode-info">Chargement…</span>
+    <span id="public-info"></span>
+    <span id="user-info" style="margin-left:auto"></span>
+    <button class="btn btn-sm btn-blanc hidden" id="logout" type="button">Se déconnecter</button>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- Connexion (mode Firebase) -->
+  <section class="login card hidden" id="login">
+    <h1 style="font-size:1.6rem;color:var(--rouge)">Connexion organisateurs</h1>
+    <p class="muted">Utilisez le compte créé dans Firebase (voir README).</p>
+    <form id="login-form">
+      <div class="form-row"><label for="email">E-mail</label><input class="input" id="email" type="email" autocomplete="username" required></div>
+      <div class="form-row"><label for="pw">Mot de passe</label><input class="input" id="pw" type="password" autocomplete="current-password" required></div>
+      <button class="btn btn-rouge" type="submit" style="width:100%">Se connecter</button>
+      <p class="alerte alerte-err hidden" id="login-err"></p>
+    </form>
+  </section>
+
+  <div id="app" class="hidden">
+    <div class="alerte alerte-warn hidden" id="local-warn">
+      <b>Mode fichier (sans Firebase).</b> Vos modifications sont enregistrées <b>uniquement dans ce navigateur</b>.
+      Pour les publier : <b>Réglages → Exporter</b>, puis remplacez le fichier <code>data/tournoi.json</code> du dépôt GitHub.
+      Pour des scores vraiment en direct (plusieurs organisateurs, mise à jour instantanée), configurez Firebase (voir README).
+    </div>
+
+    <div class="tabs" style="top:64px">
+      <div class="tabs-inner" role="tablist">
+        <button class="tab" role="tab" data-tab="scores" aria-selected="true">Scores</button>
+        <button class="tab" role="tab" data-tab="equipes" aria-selected="false">Équipes <span class="count" id="nb-equipes">0</span></button>
+        <button class="tab" role="tab" data-tab="poules" aria-selected="false">Poules</button>
+        <button class="tab" role="tab" data-tab="tableaux" aria-selected="false">Tableaux</button>
+        <button class="tab" role="tab" data-tab="reglages" aria-selected="false">Réglages</button>
+      </div>
+    </div>
+
+    <!-- SCORES -->
+    <section class="panel" id="panel-scores">
+      <div class="toolbar">
+        <select class="select" id="f-creneau" style="max-width:260px" aria-label="Tour"></select>
+        <input class="input grow" type="search" id="f-texte" placeholder="Filtrer par équipe ou terrain…" aria-label="Filtrer">
+        <label class="small" style="display:flex;gap:6px;align-items:center;font-weight:600"><input type="checkbox" id="f-masquer"> Masquer les matchs terminés</label>
+      </div>
+      <p class="muted small">Les + / − enregistrent immédiatement le score et passent le match « En cours ». Cliquez sur « Terminé » à la fin de la partie.</p>
+      <div class="score-list" id="score-list"></div>
+    </section>
+
+    <!-- ÉQUIPES -->
+    <section class="panel hidden" id="panel-equipes">
+      <div class="card" style="margin-bottom:16px">
+        <h3>Importer une liste d'équipes</h3>
+        <p class="muted small">Une équipe par ligne : <code>Nom de l'équipe ; Joueur 1 ; Joueur 2 ; Déguisement</code>. Séparateurs acceptés : point-virgule, virgule ou tabulation (copier-coller depuis Excel / export HelloAsso).</p>
+        <textarea class="input" id="import-texte" placeholder="Les Boules à Facettes ; Léa ; Tom ; Disco&#10;Les Pirates du Rond ; Inès ; Hugo ; Pirates"></textarea>
+        <div class="toolbar" style="margin:10px 0 0">
+          <button class="btn btn-rouge btn-sm" id="import-btn" type="button">Ajouter ces équipes</button>
+          <button class="btn btn-ligne btn-sm" id="ajout-btn" type="button">+ Ajouter une équipe vide</button>
+        </div>
+      </div>
+      <div class="table-scroll">
+        <table class="admin-table">
+          <thead><tr><th>#</th><th>Nom de l'équipe</th><th>Joueur 1</th><th>Joueur 2</th><th>Déguisement</th><th>Poule</th><th></th></tr></thead>
+          <tbody id="equipes-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- POULES -->
+    <section class="panel hidden" id="panel-poules">
+      <div class="toolbar">
+        <button class="btn btn-rouge btn-sm" id="tirage-btn" type="button">🎲 Tirage au sort automatique</button>
+        <button class="btn btn-ligne btn-sm" id="vider-poules-btn" type="button">Vider les poules</button>
+        <span class="muted small" id="poules-info"></span>
+      </div>
+      <p class="muted small">Choisir une équipe déjà placée l'échange avec l'équipe actuelle de la case. Attention : modifier une poule dont les matchs ont commencé fausse les scores déjà saisis.</p>
+      <div class="poules-admin" id="poules-admin"></div>
+    </section>
+
+    <!-- TABLEAUX -->
+    <section class="panel hidden" id="panel-tableaux">
+      <div class="card" style="margin-bottom:16px">
+        <h3>Générer les tableaux</h3>
+        <p id="qualif-info" class="muted"></p>
+        <div class="toolbar" style="margin:0">
+          <button class="btn btn-rouge btn-sm" id="generer-btn" type="button">Générer le tableau final et la consolante</button>
+          <button class="btn btn-ligne btn-sm" id="vider-tableaux-btn" type="button">Vider les tableaux</button>
+        </div>
+        <p class="muted small" style="margin:10px 0 0">Placement automatique selon le classement des poules (1ers, puis 2es, puis meilleurs 3es), en évitant que deux équipes d'une même poule se rencontrent au 1er tour. Vous pouvez ensuite ajuster chaque match à la main ci-dessous (les cases orange signalent deux équipes de la même poule).</p>
+      </div>
+      <div class="grid grid-2">
+        <div><h2 style="font-size:1.3rem;color:var(--rouge)">Tableau final · 16es</h2><div class="bracket-admin" id="ba-principal"></div></div>
+        <div><h2 style="font-size:1.3rem;color:var(--rouge)">Consolante · 8es</h2><div class="bracket-admin" id="ba-consolante"></div></div>
+      </div>
+    </section>
+
+    <!-- RÉGLAGES -->
+    <section class="panel hidden" id="panel-reglages">
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Visibilité du direct</h3>
+          <label style="display:flex;gap:10px;align-items:center;font-weight:700"><input type="checkbox" id="public-check" style="width:22px;height:22px"> Ouvrir la page Direct au public</label>
+          <p class="muted small" style="margin-top:8px">Tant que c'est décoché, la page Direct affiche « Rendez-vous le 18 mars ». Cochez-le une fois les poules tirées.</p>
+        </div>
+        <div class="card">
+          <h3>Annonce</h3>
+          <textarea class="input" id="annonce-texte" style="min-height:80px;font-family:inherit" placeholder="Ex : Les 16es de finale commencent à 13h15 !"></textarea>
+          <div class="toolbar" style="margin:10px 0 0">
+            <button class="btn btn-rouge btn-sm" id="annonce-btn" type="button">Publier l'annonce</button>
+            <button class="btn btn-ligne btn-sm" id="annonce-effacer" type="button">Effacer</button>
+          </div>
+        </div>
+        <div class="card" style="grid-column:1/-1">
+          <h3>Horaires des tours</h3>
+          <p class="muted small">Modifiez un horaire en cas de retard : il est mis à jour pour tous les matchs du tour.</p>
+          <div class="slot-grid" id="horaires"></div>
+        </div>
+        <div class="card" style="grid-column:1/-1">
+          <h3>Données</h3>
+          <div class="toolbar" style="margin:0">
+            <button class="btn btn-ligne btn-sm" id="export-btn" type="button">⬇ Exporter (tournoi.json)</button>
+            <label class="btn btn-ligne btn-sm" style="cursor:pointer">⬆ Importer un fichier<input type="file" id="import-file" accept="application/json,.json" class="sr-only"></label>
+            <button class="btn btn-ligne btn-sm" id="demo-btn" type="button">Charger des données de démo</button>
+            <button class="btn btn-ligne btn-sm hidden" id="fichier-btn" type="button">Recharger data/tournoi.json</button>
+            <button class="btn btn-sm" id="reset-btn" type="button" style="background:var(--rouge-clair);color:var(--rouge)">Tout réinitialiser</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/config.js"></script>
+<script src="js/tournament.js"></script>
+<script src="js/store.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>

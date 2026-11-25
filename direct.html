@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Direct · Tournoi de pétanque déguisé · Le Creusot</title>
+  <meta name="description" content="Poules, tableau final, consolante, horaires, terrains et scores en direct du tournoi de pétanque déguisé du 18 mars 2027 à la NEF du Creusot.">
+  <meta name="theme-color" content="#970c2d">
+  <link rel="icon" type="image/png" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="index.html">
+      <img src="assets/logo.png" alt="" width="44" height="44">
+      <span>Tournoi de pétanque<small>Le Creusot · 18.03.2027</small></span>
+    </a>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="index.html#infos">Infos pratiques</a>
+      <a href="index.html#programme">Programme</a>
+      <a href="index.html#lots">Lots &amp; tombola</a>
+      <a href="index.html#reglement">Règlement</a>
+      <a href="index.html#inscription">Inscription</a>
+      <a class="btn btn-rouge btn-sm" href="direct.html" aria-current="page"><span class="dot dot-live" style="background:#fff"></span> Direct</a>
+    </nav>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Ouvrir le menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Navigation mobile">
+    <a href="index.html">Accueil</a>
+    <a href="index.html#infos">Infos pratiques</a>
+    <a href="index.html#programme">Programme de la journée</a>
+    <a href="index.html#lots">Lots &amp; tombola</a>
+    <a href="index.html#reglement">Règlement</a>
+    <a class="btn btn-rouge" href="index.html#inscription">Inscrire mon équipe · 5 €</a>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap direct-head">
+    <h1>Le tournoi en direct</h1>
+    <div class="statut-ligne">
+      <span class="statut-badge" id="statut"><span class="dot"></span> Chargement…</span>
+      <span id="maj"></span>
+    </div>
+    <div class="annonce hidden" id="annonce" role="status">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h3l5 4V6L7 10H4a1 1 0 0 0-1 1z"/><path d="M16 8a5 5 0 0 1 0 8"/></svg>
+      <span id="annonce-texte"></span>
+    </div>
+  </div>
+
+  <!-- Avant l'ouverture du direct -->
+  <div class="wrap hidden" id="ferme">
+    <div class="vide-etat" style="margin:24px 0 56px">
+      <img src="assets/logo.png" alt="">
+      <h2>Rendez-vous le 18 mars&nbsp;!</h2>
+      <p>Les poules seront tirées au sort le jour du tournoi, après le pointage des équipes. Cette page affichera alors les poules, le tableau final, la consolante, les horaires, les terrains et les scores en direct.</p>
+      <p><a class="btn btn-rouge" href="index.html#inscription">Inscrire mon équipe</a> <a class="btn btn-ligne" href="direct.html?demo">Voir une démo</a></p>
+    </div>
+  </div>
+
+  <div id="ouvert" class="hidden">
+    <div class="wrap">
+      <div class="suivi">
+        <label for="mon-equipe">⭐ Suivre mon équipe</label>
+        <div class="suivi-row">
+          <select class="select" id="mon-equipe"><option value="">Choisir une équipe…</option></select>
+        </div>
+        <div class="suivi-info" id="suivi-info"></div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <div class="wrap">
+        <div class="tabs-inner" role="tablist" aria-label="Sections du direct">
+          <button class="tab" role="tab" data-tab="programme" aria-selected="true">Programme</button>
+          <button class="tab" role="tab" data-tab="poules" aria-selected="false">Poules</button>
+          <button class="tab" role="tab" data-tab="tableau" aria-selected="false">Tableau final</button>
+          <button class="tab" role="tab" data-tab="consolante" aria-selected="false">Consolante</button>
+          <button class="tab" role="tab" data-tab="equipes" aria-selected="false">Équipes</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wrap">
+      <section class="panel" id="panel-programme" role="tabpanel">
+        <div class="filtres" id="filtres">
+          <button class="chip" data-f="avenir" aria-pressed="true">En cours &amp; à venir</button>
+          <button class="chip" data-f="live" aria-pressed="false"><span class="dot dot-live"></span> En cours</button>
+          <button class="chip" data-f="fini" aria-pressed="false">Terminés</button>
+          <button class="chip" data-f="tous" aria-pressed="false">Tous</button>
+          <button class="chip hidden" data-f="moi" aria-pressed="false">⭐ Mon équipe</button>
+        </div>
+        <div id="programme-liste"></div>
+      </section>
+
+      <section class="panel hidden" id="panel-poules" role="tabpanel">
+        <div class="legende">
+          <span><span class="q q-p">TABLEAU</span> qualifiée pour le tableau final</span>
+          <span><span class="q q-c">CONSO</span> qualifiée pour la consolante</span>
+          <span>V : victoires · D : défaites · +/- : différence de points</span>
+        </div>
+        <div id="poules-liste"></div>
+      </section>
+
+      <section class="panel hidden" id="panel-tableau" role="tabpanel">
+        <div id="tableau-liste"></div>
+      </section>
+
+      <section class="panel hidden" id="panel-consolante" role="tabpanel">
+        <div id="consolante-liste"></div>
+      </section>
+
+      <section class="panel hidden" id="panel-equipes" role="tabpanel">
+        <div class="toolbar">
+          <input class="input grow" type="search" id="recherche" placeholder="Rechercher une équipe, un joueur, un déguisement…" aria-label="Rechercher une équipe">
+        </div>
+        <div id="equipes-liste"></div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="" width="72" height="72">
+        <div>
+          <b>Tournoi de pétanque déguisé</b>
+          Organisé par les étudiants de L2 STAPS<br>Campus Bourgogne · Le Creusot
+        </div>
+      </div>
+      <div class="footer-links">
+        <a href="index.html">Accueil</a>
+        <a href="index.html#reglement">Règlement</a>
+        <a data-cfg-href="instagram" data-hide-empty href="#" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bas">
+      <span>© 2027 · L2 STAPS Le Creusot</span>
+      <a href="admin.html">Espace organisateurs</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/config.js"></script>
+<script src="js/common.js"></script>
+<script src="js/tournament.js"></script>
+<script src="js/store.js"></script>
+<script src="js/direct.js"></script>
+</body>
+</html>
