@@ -12,7 +12,7 @@
   var DATA_URL = "data/tournoi.json";
   var LOCAL_KEY = "tournoi-petanque-local";
   var ROOT = "tournoi";
-  var demo = /[?&]demo\b/.test(location.search);
+  var demo = /[?&]demo\b/.test(location.search) || cfg.demo === true;
   var firebaseOn = !!(cfg.firebase && cfg.firebase.apiKey && cfg.firebase.databaseURL);
   var mode = demo ? "demo" : (firebaseOn ? "firebase" : "fichier");
 

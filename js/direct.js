@@ -64,7 +64,7 @@
     onglet = nomOnglet;
     tabs.forEach(function (t) { t.setAttribute("aria-selected", t.getAttribute("data-tab") === nomOnglet ? "true" : "false"); });
     document.querySelectorAll(".panel").forEach(function (p) { p.classList.toggle("hidden", p.id !== "panel-" + nomOnglet); });
-    if (history.replaceState) history.replaceState(null, "", location.pathname + location.search + "#" + nomOnglet);
+    try { history.replaceState(null, "", location.pathname + location.search + "#" + nomOnglet); } catch (e) { /* cadre restreint */ }
     if (scroll) {
       var top = document.querySelector(".tabs").getBoundingClientRect().top + window.scrollY - 64;
       if (window.scrollY > top) window.scrollTo(0, top);

@@ -28,6 +28,34 @@
     toastTimer = setTimeout(function () { el.classList.remove("show"); }, err ? 5000 : 1800);
   }
 
+  /* ------------------------------------------- boîte de confirmation */
+  var dialogue = document.createElement("div");
+  dialogue.className = "modal-fond hidden";
+  dialogue.innerHTML = '<div class="modal" role="alertdialog" aria-modal="true" aria-labelledby="modal-texte">' +
+    '<p id="modal-texte"></p><div class="toolbar" style="margin:0;justify-content:flex-end">' +
+    '<button type="button" class="btn btn-ligne btn-sm" id="modal-non">Annuler</button>' +
+    '<button type="button" class="btn btn-rouge btn-sm" id="modal-oui">Confirmer</button></div></div>';
+  document.body.appendChild(dialogue);
+  var repondre = null;
+  function fermer(ok) {
+    dialogue.classList.add("hidden");
+    var cb = repondre; repondre = null;
+    if (cb) cb(ok);
+  }
+  dialogue.querySelector("#modal-oui").addEventListener("click", function () { fermer(true); });
+  dialogue.querySelector("#modal-non").addEventListener("click", function () { fermer(false); });
+  dialogue.addEventListener("click", function (e) { if (e.target === dialogue) fermer(false); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && repondre) fermer(false); });
+  // Remplace window.confirm (bloqué dans certains navigateurs intégrés)
+  function confirmer(message, libelleOk, action) {
+    if (repondre) fermer(false);
+    dialogue.querySelector("#modal-texte").textContent = message;
+    dialogue.querySelector("#modal-oui").textContent = libelleOk || "Confirmer";
+    dialogue.classList.remove("hidden");
+    dialogue.querySelector("#modal-oui").focus();
+    repondre = function (ok) { if (ok) action(); };
+  }
+
   function save(updates, msg) {
     return S.update(updates).then(function () { if (msg) toast(msg); }).catch(function (e) {
       var txt = e && e.message ? e.message : String(e);
@@ -256,15 +284,16 @@
     var b = e.target.closest("[data-suppr]");
     if (!b) return;
     var id = b.getAttribute("data-suppr");
-    if (!confirm("Supprimer l'équipe « " + nom(id) + " » ? Elle sera retirée des poules et des tableaux.")) return;
-    var upd = {}; upd["teams/" + id] = null;
-    T.LETTRES.forEach(function (L) {
-      if (state.poules[L].indexOf(id) >= 0) upd["poules/" + L] = state.poules[L].map(function (x) { return x === id ? "" : x; });
+    confirmer("Supprimer l'équipe « " + nom(id) + " » ? Elle sera retirée des poules et des tableaux.", "Supprimer", function () {
+      var upd = {}; upd["teams/" + id] = null;
+      T.LETTRES.forEach(function (L) {
+        if (state.poules[L].indexOf(id) >= 0) upd["poules/" + L] = state.poules[L].map(function (x) { return x === id ? "" : x; });
+      });
+      ["principal", "consolante"].forEach(function (k) {
+        if (state.brackets[k].indexOf(id) >= 0) upd["brackets/" + k] = state.brackets[k].map(function (x) { return x === id ? "" : x; });
+      });
+      save(upd, "Équipe supprimée");
     });
-    ["principal", "consolante"].forEach(function (k) {
-      if (state.brackets[k].indexOf(id) >= 0) upd["brackets/" + k] = state.brackets[k].map(function (x) { return x === id ? "" : x; });
-    });
-    save(upd, "Équipe supprimée");
   });
   $("ajout-btn").addEventListener("click", function () {
     var id = nouvelId(state.teams);
@@ -293,7 +322,7 @@
     return Object.keys(state.matches).some(function (id) { return /^[A-L]-\d$/.test(id) && state.matches[id].st; });
   }
   function scoresTableauxSaisis() {
-    return Object.keys(state.matches).some(function (id) { return /^[PC]/.test(id) && state.matches[id].st; });
+    return Object.keys(state.matches).some(function (id) { return /^[PC]\d/.test(id) && state.matches[id].st; });
   }
   function effacerScores(upd, regex) {
     Object.keys(state.matches).forEach(function (id) { if (regex.test(id)) upd["matches/" + id] = null; });
@@ -335,9 +364,12 @@
   $("tirage-btn").addEventListener("click", function () {
     var ids = Object.keys(state.teams);
     if (!ids.length) return toast("Ajoutez d'abord les équipes.", true);
-    if (ids.length > 48 && !confirm(ids.length + " équipes inscrites : seules 48 seront placées. Continuer ?")) return;
-    if (scoresPoulesSaisis() && !confirm("Des scores de poule ont déjà été saisis. Un nouveau tirage les effacera. Continuer ?")) return;
-    if (!scoresPoulesSaisis() && !confirm("Lancer le tirage au sort des " + Math.min(48, ids.length) + " équipes dans les 12 poules ?")) return;
+    var msg = "Lancer le tirage au sort des " + Math.min(48, ids.length) + " équipes dans les 12 poules ?" +
+      (ids.length > 48 ? " Attention : " + ids.length + " équipes inscrites, seules 48 seront placées." : "") +
+      (scoresPoulesSaisis() ? " Les scores de poule déjà saisis seront effacés." : "");
+    confirmer(msg, "Lancer le tirage", function () { tirage(ids); });
+  });
+  function tirage(ids) {
     var melange = ids.slice();
     for (var i = melange.length - 1; i > 0; i--) {
       var j = Math.floor(Math.random() * (i + 1));
@@ -355,13 +387,14 @@
     T.LETTRES.forEach(function (L) { upd["poules/" + L] = poules[L]; });
     effacerScores(upd, /^[A-L]-\d$/);
     save(upd, "Tirage effectué 🎲");
-  });
+  }
   $("vider-poules-btn").addEventListener("click", function () {
-    if (!confirm("Vider toutes les poules" + (scoresPoulesSaisis() ? " et effacer les scores de poule" : "") + " ?")) return;
-    var upd = {};
-    T.LETTRES.forEach(function (L) { upd["poules/" + L] = ["", "", "", ""]; });
-    effacerScores(upd, /^[A-L]-\d$/);
-    save(upd, "Poules vidées");
+    confirmer("Vider toutes les poules" + (scoresPoulesSaisis() ? " et effacer les scores de poule" : "") + " ?", "Vider", function () {
+      var upd = {};
+      T.LETTRES.forEach(function (L) { upd["poules/" + L] = ["", "", "", ""]; });
+      effacerScores(upd, /^[A-L]-\d$/);
+      save(upd, "Poules vidées");
+    });
   });
 
   /* ========================================================== TABLEAUX */
@@ -418,18 +451,24 @@
 
   $("generer-btn").addEventListener("click", function () {
     var q = T.qualification(state);
-    if (!q.complete && !confirm("Toutes les poules ne sont pas terminées. Générer quand même avec le classement actuel ?")) return;
-    if (scoresTableauxSaisis() && !confirm("Des scores de tableau ont déjà été saisis : ils seront effacés. Continuer ?")) return;
-    var g = T.genererTableaux(state);
-    var upd = { "brackets/principal": g.principal, "brackets/consolante": g.consolante };
-    effacerScores(upd, /^[PC]/);
-    save(upd, "Tableaux générés 🏆");
+    function generer() {
+      var g = T.genererTableaux(state);
+      var upd = { "brackets/principal": g.principal, "brackets/consolante": g.consolante };
+      effacerScores(upd, /^[PC]\d/);
+      save(upd, "Tableaux générés 🏆");
+    }
+    var avertissements = [];
+    if (!q.complete) avertissements.push("Toutes les poules ne sont pas terminées : le classement actuel sera utilisé.");
+    if (scoresTableauxSaisis()) avertissements.push("Les scores de tableau déjà saisis seront effacés.");
+    if (!avertissements.length) return generer();
+    confirmer(avertissements.join(" ") + " Générer quand même ?", "Générer", generer);
   });
   $("vider-tableaux-btn").addEventListener("click", function () {
-    if (!confirm("Vider le tableau final et la consolante" + (scoresTableauxSaisis() ? " (les scores de tableau seront effacés)" : "") + " ?")) return;
-    var upd = { "brackets/principal": [], "brackets/consolante": [] };
-    effacerScores(upd, /^[PC]/);
-    save(upd, "Tableaux vidés");
+    confirmer("Vider le tableau final et la consolante" + (scoresTableauxSaisis() ? " (les scores de tableau seront effacés)" : "") + " ?", "Vider", function () {
+      var upd = { "brackets/principal": [], "brackets/consolante": [] };
+      effacerScores(upd, /^[PC]\d/);
+      save(upd, "Tableaux vidés");
+    });
   });
 
   /* ========================================================== RÉGLAGES */
@@ -467,8 +506,9 @@
     lecteur.onload = function () {
       try {
         var data = JSON.parse(lecteur.result);
-        if (!confirm("Remplacer toutes les données actuelles par celles du fichier ?")) return;
-        S.replaceAll(data).then(function () { toast("Données importées"); });
+        confirmer("Remplacer toutes les données actuelles par celles du fichier ?", "Remplacer", function () {
+          S.replaceAll(data).then(function () { toast("Données importées"); });
+        });
       } catch (err) { toast("Fichier invalide : " + err.message, true); }
     };
     lecteur.readAsText(f);
@@ -478,17 +518,19 @@
     var msg = S.mode === "firebase"
       ? "ATTENTION : cela remplace les VRAIES données du tournoi (visibles par tous) par des données fictives. Continuer ?"
       : "Remplacer les données de ce navigateur par des données de démo ?";
-    if (!confirm(msg)) return;
-    S.replaceAll(T.demoState()).then(function () { toast("Démo chargée"); });
+    confirmer(msg, "Charger la démo", function () {
+      S.replaceAll(T.demoState()).then(function () { toast("Démo chargée"); });
+    });
   });
   $("fichier-btn").addEventListener("click", function () {
-    if (!confirm("Abandonner les modifications locales et recharger data/tournoi.json ?")) return;
-    S.resetLocal();
-    location.reload();
+    confirmer("Abandonner les modifications locales et recharger data/tournoi.json ?", "Recharger", function () {
+      S.resetLocal();
+      location.reload();
+    });
   });
   $("reset-btn").addEventListener("click", function () {
-    if (!confirm("Tout effacer (équipes, poules, scores, tableaux) ?")) return;
-    if (!confirm("Vraiment tout effacer ? Cette action est irréversible.")) return;
-    S.replaceAll({ public: false, annonce: "" }).then(function () { toast("Données réinitialisées"); });
+    confirmer("Tout effacer (équipes, poules, scores, tableaux) ? Cette action est irréversible.", "Tout effacer", function () {
+      S.replaceAll({ public: false, annonce: "" }).then(function () { toast("Données réinitialisées"); });
+    });
   });
 })();
